@@ -500,9 +500,7 @@ export function Sidebar({
     <div className={cx("at-sidebar-inner", collapsed && "is-collapsed")}>
       <div className="at-brand-row">
         <Link to="/" className="at-brand" aria-label="Atlas home">
-          <span className="at-brand-name">
-            atlas<span>founded</span>
-          </span>
+          <span className="at-brand-name">atlas</span>
         </Link>
         <button
           type="button"

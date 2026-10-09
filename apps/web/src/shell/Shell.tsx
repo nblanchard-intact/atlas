@@ -155,9 +155,7 @@ export function Shell({
                 <Menu size={18} aria-hidden />
               </button>
               <Link to="/" className="at-brand" aria-label="Atlas home">
-                <span className="at-brand-name">
-                  atlas<span>founded</span>
-                </span>
+                <span className="at-brand-name">atlas</span>
               </Link>
               <span className="at-mobile-ws">{current.name}</span>
               <button
