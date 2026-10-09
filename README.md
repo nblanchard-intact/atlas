@@ -1,4 +1,11 @@
-V<p align="center">
+<h1 align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-dark.svg">
+    <img src="docs/assets/logo-light.svg" alt="Atlas" width="320">
+  </picture>
+</h1>
+
+<p align="center">
   <strong>Your company's data, connected into one ontology, on your own computer.</strong>
 </p>
 
