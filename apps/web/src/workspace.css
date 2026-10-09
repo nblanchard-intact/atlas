@@ -1,0 +1,563 @@
+/* Workspace design system: tokens, base styles for the app shell, and a bridge
+   that lets pre-overhaul pages follow the tokens. Onboarding renders outside
+   .at-app, so none of this changes its look. */
+:root {
+  --at-font-sans:
+    Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --at-font-display: Georgia, "Times New Roman", serif;
+  --at-font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --at-text-xs: 11px;
+  --at-text-sm: 12px;
+  --at-text-base: 13px;
+  --at-text-md: 14px;
+  --at-text-lg: 16px;
+  --at-text-xl: 20px;
+  --at-text-2xl: 26px;
+  --at-text-3xl: 34px;
+
+  --at-space-05: 4px;
+  --at-space-1: 8px;
+  --at-space-15: 12px;
+  --at-space-2: 16px;
+  --at-space-3: 24px;
+  --at-space-4: 32px;
+  --at-space-5: 40px;
+  --at-space-6: 48px;
+  --at-space-8: 64px;
+
+  --at-radius-sm: 6px;
+  --at-radius: 8px;
+  --at-radius-lg: 12px;
+  --at-radius-xl: 16px;
+  --at-radius-pill: 999px;
+
+  --at-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --at-duration: 160ms;
+  --at-sidebar-width: 236px;
+  --at-sidebar-collapsed: 60px;
+
+  /* Warm paper surfaces, olive ink and the onboarding mint. */
+  --at-bg: #f8f7f3;
+  --at-surface: #f8f7f3;
+  --at-raised: #fdfcf9;
+  --at-sunken: #f0efe9;
+  --at-sidebar: #f1f0ea;
+  --at-hover: #eceae2;
+  --at-selected: #e5e7da;
+  --at-overlay: rgba(41, 42, 38, 0.28);
+  --at-border: #e4e2da;
+  --at-border-strong: #d4d2c7;
+  --at-text: #292a26;
+  --at-text-2: #4f534a;
+  /* Secondary text; 4.5:1 or better on every surface, hover and selected. */
+  --at-muted: #65675e;
+  /* Icons, borders and decoration only: too light for text. */
+  --at-faint: #9b9d93;
+  --at-ink: #343932;
+  --at-ink-hover: #232721;
+  --at-on-ink: #fbfaf6;
+  --at-field: #fcfbf8;
+  /* 3:1 or better against every surface. */
+  --at-focus: #2a8f69;
+
+  --at-accent: #36b98a;
+  --at-accent-strong: #2a9b72;
+  --at-accent-soft: #e5f4ea;
+  --at-accent-border: #c3e2cf;
+  --at-accent-text: #2d6a4b;
+
+  --at-success: #36b98a;
+  --at-success-soft: #e5f4ea;
+  --at-success-text: #2d6a4b;
+  --at-warning: #c99a3e;
+  --at-warning-soft: #f6efdd;
+  --at-warning-text: #87662e;
+  --at-danger: #b5503b;
+  --at-danger-soft: #f7e9e4;
+  --at-danger-text: #a44a36;
+  /* Text on solid danger fills (buttons, error toasts). */
+  --at-on-danger: #ffffff;
+  --at-info: #4f82b3;
+  --at-info-soft: #e7eef6;
+  --at-info-text: #36608a;
+
+  /* Categorical chart palette, in order. */
+  --at-chart-1: #36b98a;
+  --at-chart-2: #4f82b3;
+  --at-chart-3: #c99a3e;
+  --at-chart-4: #8a6fb0;
+  --at-chart-5: #c85a43;
+  --at-chart-6: #6f7a4f;
+
+  --at-shadow-1: 0 1px 2px rgba(34, 35, 24, 0.05);
+  --at-shadow-2:
+    0 1px 2px rgba(34, 35, 24, 0.04), 0 8px 24px rgba(34, 35, 24, 0.07);
+  --at-shadow-3:
+    0 2px 6px rgba(34, 35, 24, 0.06), 0 24px 64px rgba(34, 35, 24, 0.16);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --at-bg: #161713;
+    --at-surface: #161713;
+    --at-raised: #1e1f1a;
+    --at-sunken: #121310;
+    --at-sidebar: #1a1b17;
+    --at-hover: #26281f;
+    --at-selected: #2c3026;
+    --at-overlay: rgba(0, 0, 0, 0.5);
+    --at-border: #2e3029;
+    --at-border-strong: #3d4036;
+    --at-text: #ecebe4;
+    --at-text-2: #c9c8be;
+    --at-muted: #9c9d92;
+    --at-faint: #6f7168;
+    --at-ink: #e9e8df;
+    --at-ink-hover: #ffffff;
+    --at-on-ink: #1a1b16;
+    --at-field: #1a1b17;
+    --at-focus: #4fd0a0;
+    --at-accent: #4fd0a0;
+    --at-accent-strong: #6fdcb2;
+    --at-accent-soft: #19362a;
+    --at-accent-border: #28543f;
+    --at-accent-text: #8fe3c4;
+    --at-success: #4fd0a0;
+    --at-success-soft: #19362a;
+    --at-success-text: #8fe3c4;
+    --at-warning: #e0b35a;
+    --at-warning-soft: #3a2f18;
+    --at-warning-text: #eac77f;
+    --at-danger: #e47a62;
+    --at-danger-soft: #3d201a;
+    --at-danger-text: #f0a08d;
+    --at-on-danger: #1a1b16;
+    --at-info: #74a6d8;
+    --at-info-soft: #1b2a3a;
+    --at-info-text: #a3c6ea;
+    --at-chart-1: #4fd0a0;
+    --at-chart-2: #74a6d8;
+    --at-chart-3: #e0b35a;
+    --at-chart-4: #a98fd0;
+    --at-chart-5: #e47a62;
+    --at-chart-6: #a3ad7e;
+    --at-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --at-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+    --at-shadow-3:
+      0 2px 6px rgba(0, 0, 0, 0.35), 0 24px 64px rgba(0, 0, 0, 0.55);
+  }
+}
+:root[data-theme="dark"] {
+  --at-bg: #161713;
+  --at-surface: #161713;
+  --at-raised: #1e1f1a;
+  --at-sunken: #121310;
+  --at-sidebar: #1a1b17;
+  --at-hover: #26281f;
+  --at-selected: #2c3026;
+  --at-overlay: rgba(0, 0, 0, 0.5);
+  --at-border: #2e3029;
+  --at-border-strong: #3d4036;
+  --at-text: #ecebe4;
+  --at-text-2: #c9c8be;
+  --at-muted: #9c9d92;
+  --at-faint: #6f7168;
+  --at-ink: #e9e8df;
+  --at-ink-hover: #ffffff;
+  --at-on-ink: #1a1b16;
+  --at-field: #1a1b17;
+  --at-focus: #4fd0a0;
+  --at-accent: #4fd0a0;
+  --at-accent-strong: #6fdcb2;
+  --at-accent-soft: #19362a;
+  --at-accent-border: #28543f;
+  --at-accent-text: #8fe3c4;
+  --at-success: #4fd0a0;
+  --at-success-soft: #19362a;
+  --at-success-text: #8fe3c4;
+  --at-warning: #e0b35a;
+  --at-warning-soft: #3a2f18;
+  --at-warning-text: #eac77f;
+  --at-danger: #e47a62;
+  --at-danger-soft: #3d201a;
+  --at-danger-text: #f0a08d;
+  --at-on-danger: #1a1b16;
+  --at-info: #74a6d8;
+  --at-info-soft: #1b2a3a;
+  --at-info-text: #a3c6ea;
+  --at-chart-1: #4fd0a0;
+  --at-chart-2: #74a6d8;
+  --at-chart-3: #e0b35a;
+  --at-chart-4: #a98fd0;
+  --at-chart-5: #e47a62;
+  --at-chart-6: #a3ad7e;
+  --at-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --at-shadow-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --at-shadow-3: 0 2px 6px rgba(0, 0, 0, 0.35), 0 24px 64px rgba(0, 0, 0, 0.55);
+}
+
+/* The document behind the shell (scrollbars, overscroll) follows the theme.
+   Shell adds .at-root to <html> while mounted; onboarding and sign-in keep
+   their own light page. */
+html.at-root,
+html.at-root body {
+  background: var(--at-bg);
+}
+html.at-root {
+  color-scheme: light;
+}
+:root.at-root[data-theme="dark"] {
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root.at-root:not([data-theme="light"]) {
+    color-scheme: dark;
+  }
+}
+
+/* App root: everything inside the workspace shell. */
+.at-app {
+  /* Legacy tokens used by minimal.css follow the theme inside the shell. */
+  --border: var(--at-border);
+  --muted: var(--at-muted);
+  --green: var(--at-ink);
+  --purple: var(--at-muted);
+  min-height: 100dvh;
+  background: var(--at-bg);
+  color: var(--at-text);
+  font-family: var(--at-font-sans);
+  font-size: var(--at-text-md);
+  color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+}
+:root[data-theme="dark"] .at-app {
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .at-app {
+    color-scheme: dark;
+  }
+}
+.at-app :focus-visible {
+  outline: 2px solid var(--at-focus);
+  outline-offset: 2px;
+}
+.at-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.at-mono {
+  font-family: var(--at-font-mono);
+  font-size: 0.92em;
+}
+.at-num {
+  font-variant-numeric: tabular-nums;
+}
+@keyframes at-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes at-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes at-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+@keyframes at-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.at-spin {
+  animation: at-spin 0.9s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .at-app *,
+  .at-app *::before,
+  .at-app *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Legacy bridge: pre-overhaul pages (minimal.css) read the tokens inside the
+   shell. :where() keeps each rule at the legacy selector's own specificity,
+   so more specific legacy rules (e.g. .button.primary) still win. */
+:where(.at-app) h1,
+:where(.at-app) h2 {
+  color: var(--at-text);
+}
+:where(.at-app) label {
+  color: var(--at-text-2);
+}
+:where(.at-app) input,
+:where(.at-app) select,
+:where(.at-app) textarea {
+  color: var(--at-text);
+  background: var(--at-field);
+  border-color: var(--at-border-strong);
+}
+:where(.at-app) pre {
+  background: var(--at-sunken);
+  color: var(--at-text-2);
+}
+:where(.at-app) code {
+  color: var(--at-text-2);
+}
+:where(.at-app) summary {
+  color: var(--at-muted);
+}
+:where(.at-app) .button {
+  background: var(--at-raised);
+  border-color: var(--at-border-strong);
+  color: var(--at-text);
+}
+:where(.at-app) .panel,
+:where(.at-app) .simple-list,
+:where(.at-app) .modal,
+:where(.at-app) .menu-content,
+:where(.at-app) .table-scroll,
+:where(.at-app) .widget,
+:where(.at-app) .issues {
+  background: var(--at-raised);
+  border-color: var(--at-border);
+  color: var(--at-text);
+}
+:where(.at-app) .simple-row {
+  border-color: var(--at-border);
+  color: var(--at-text);
+}
+:where(.at-app) .simple-row:hover {
+  background: var(--at-hover);
+}
+:where(.at-app) th {
+  color: var(--at-muted);
+  background: var(--at-raised);
+  border-color: var(--at-border);
+}
+:where(.at-app) td {
+  border-color: var(--at-border);
+}
+:where(.at-app) .page-heading p,
+:where(.at-app) .simple-row p {
+  color: var(--at-muted);
+}
+:where(.at-app) td {
+  color: var(--at-text);
+}
+:where(.at-app) .button:hover {
+  background: var(--at-hover);
+}
+:where(.at-app) .button.primary {
+  background: var(--at-ink);
+  border-color: var(--at-ink);
+  color: var(--at-on-ink);
+}
+:where(.at-app) .button.primary:hover {
+  background: var(--at-ink-hover);
+}
+:where(.at-app) .text-button,
+:where(.at-app) .icon-btn,
+:where(.at-app) .checkbox {
+  color: var(--at-text-2);
+}
+:where(.at-app) .badge,
+:where(.at-app) .badge.green,
+:where(.at-app) .badge.purple {
+  background: var(--at-sunken);
+  border-color: var(--at-border);
+  color: var(--at-text-2);
+}
+:where(.at-app) .badge:empty {
+  display: none;
+}
+:where(.at-app) .badge.amber {
+  background: var(--at-warning-soft);
+  color: var(--at-warning-text);
+}
+:where(.at-app) .badge.red {
+  background: var(--at-danger-soft);
+  color: var(--at-danger-text);
+}
+:where(.at-app) .tabs {
+  border-color: var(--at-border);
+}
+:where(.at-app) .tabs button {
+  color: var(--at-muted);
+}
+:where(.at-app) .tabs button.active {
+  color: var(--at-text);
+  border-color: var(--at-accent);
+}
+:where(.at-app) .panel-title {
+  border-color: var(--at-border);
+}
+:where(.at-app) .panel-title h3,
+:where(.at-app) .metric-value,
+:where(.at-app) .preview-value {
+  color: var(--at-text);
+}
+:where(.at-app) .panel-title > a,
+:where(.at-app) .metric-value > span,
+:where(.at-app) .simple-row small,
+:where(.at-app) .dataset-meta {
+  color: var(--at-muted);
+}
+:where(.at-app) .sql-block {
+  background: var(--at-sunken);
+  border-color: var(--at-border);
+  color: var(--at-text-2);
+}
+:where(.at-app) .graph-fields {
+  border-color: var(--at-border);
+}
+:where(.at-app) .issue-row a,
+:where(.at-app) .edit-mark,
+:where(.at-app) .edit-label {
+  color: var(--at-accent-text);
+}
+:where(.at-app) .records-table .record-link {
+  color: var(--at-text);
+  text-decoration-color: var(--at-border-strong);
+}
+:where(.at-app) .attention {
+  color: var(--at-warning-text);
+}
+:where(.at-app) .notice {
+  background: var(--at-sunken);
+  border-color: var(--at-border);
+  color: var(--at-text-2);
+}
+:where(.at-app) .error-box {
+  background: var(--at-danger-soft);
+  border-color: color-mix(in srgb, var(--at-danger) 25%, transparent);
+  color: var(--at-danger-text);
+}
+:where(.at-app) .preview-grid > div,
+:where(.at-app) .modal-head,
+:where(.at-app) .graph-node {
+  background: var(--at-raised);
+  border-color: var(--at-border);
+}
+:where(.at-app) .menu-content > a:hover,
+:where(.at-app) .menu-content > button:hover,
+:where(.at-app) .clickable:hover,
+:where(.at-app) a.simple-row:hover,
+:where(.at-app) button.simple-row:hover {
+  background: var(--at-hover);
+}
+:where(.at-app) .graph-node-top strong {
+  color: var(--at-text);
+}
+:where(.at-app) .graph-node-top small,
+:where(.at-app) .graph-fields {
+  color: var(--at-muted);
+}
+:where(.at-app) .resource-icon {
+  background: var(--at-sunken);
+  border-color: var(--at-border);
+  color: var(--at-text-2);
+}
+/* Provider cards in Settings (onboarding renders outside .at-app). */
+:where(.at-app) .choice-card {
+  background: var(--at-raised);
+  border-color: var(--at-border-strong);
+  color: var(--at-text);
+}
+:where(.at-app) .choice-card.selected {
+  background: var(--at-raised);
+  border-color: var(--at-text-2);
+  box-shadow: inset 0 0 0 1px var(--at-text-2);
+}
+:where(.at-app) .choice-card-description {
+  color: var(--at-muted);
+}
+:where(.at-app) .choice-card-heading input[type="radio"] {
+  background: var(--at-field);
+  border-color: var(--at-border-strong);
+}
+:where(.at-app) .choice-card-heading input:checked {
+  border-color: var(--at-text);
+}
+/* React Flow canvases (pipelines, ontology graph). */
+:where(.at-app) .graph-canvas,
+:where(.at-app) .ontology-canvas {
+  background: var(--at-sunken);
+}
+:where(.at-app) .react-flow {
+  --xy-background-color: transparent;
+  --xy-edge-stroke: var(--at-border-strong);
+  --xy-controls-button-background-color: var(--at-raised);
+  --xy-controls-button-background-color-hover: var(--at-hover);
+  --xy-controls-button-color: var(--at-text-2);
+  --xy-controls-button-color-hover: var(--at-text);
+  --xy-controls-button-border-color: var(--at-border);
+  --xy-controls-box-shadow: var(--at-shadow-1);
+  --xy-attribution-background-color: transparent;
+  --xy-edge-label-background-color: var(--at-raised);
+  --xy-edge-label-color: var(--at-text-2);
+  color: var(--at-text);
+}
+:where(.at-app) .react-flow__attribution a {
+  color: var(--at-muted);
+}
+.at-app .react-flow__handle {
+  border-color: var(--at-raised) !important;
+}
+
+/* One page width and header pattern inside the shell: legacy reading-width
+   columns take the Page width, and the sidebar replaces "← Back" links. */
+.at-page .reading-width {
+  max-width: none;
+  margin: 0;
+}
+.at-page a.back-link {
+  display: none;
+}
+:where(.at-app) .page-heading {
+  margin-bottom: var(--at-space-3);
+}
+:where(.at-app) .page-heading h1 {
+  font-family: var(--at-font-display);
+  font-size: var(--at-text-2xl);
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+:where(.at-app) .page-heading p {
+  margin-top: 6px;
+}
+:where(.at-app) .heading-actions {
+  flex-wrap: wrap;
+}
+@media (max-width: 800px) {
+  :where(.at-app) .page-heading h1 {
+    font-size: 23px;
+  }
+}
+/* Legacy action rows wrap on phones instead of pushing buttons off-screen. */
+:where(.at-page) .toolbar,
+:where(.at-page) .record-actions {
+  flex-wrap: wrap;
+}

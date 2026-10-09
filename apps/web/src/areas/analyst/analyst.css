@@ -1,0 +1,704 @@
+/* Analyst area styles (prefix an-). */
+
+/* Chat page: a header, the conversation (the only part that scrolls) and the
+   composer pinned under it, in one readable column. */
+.an-chat {
+  --an-col: 760px;
+  --an-gutter: var(--at-space-3);
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  min-height: 0;
+}
+.an-chat-head {
+  flex: none;
+  border-bottom: 1px solid var(--at-border);
+  background: var(--at-bg);
+}
+.an-chat-head-inner,
+.an-log,
+.an-dock-inner {
+  width: 100%;
+  max-width: calc(var(--an-col) + 2 * var(--an-gutter));
+  margin: 0 auto;
+  padding-left: var(--an-gutter);
+  padding-right: var(--an-gutter);
+}
+.an-chat-head-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--at-space-15);
+  padding-top: 14px;
+  padding-bottom: 12px;
+}
+.an-chat-title {
+  display: grid;
+  flex: 1;
+  gap: 3px;
+  min-width: 0;
+}
+.an-chat-title h1 {
+  margin: 0;
+  overflow: hidden;
+  color: var(--at-text);
+  font-family: var(--at-font-display);
+  font-size: var(--at-text-xl);
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.an-chat-title p {
+  margin: 0;
+  color: var(--at-muted);
+  font-size: var(--at-text-sm);
+  line-height: 1.4;
+}
+.an-chat-actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 2px;
+}
+.an-chat-empty {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  padding: var(--at-space-4) var(--an-gutter);
+}
+
+/* Conversation */
+/* Positioned, so absolutely placed descendants (screen reader text, chart
+   tips) stay inside the scroller instead of stretching the page. */
+.an-scroll {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+.an-log {
+  display: grid;
+  gap: var(--at-space-5);
+  padding-top: var(--at-space-3);
+  padding-bottom: var(--at-space-4);
+}
+.an-turn {
+  display: grid;
+  gap: var(--at-space-2);
+  min-width: 0;
+}
+.an-question {
+  justify-self: end;
+  max-width: min(85%, 620px);
+  padding: 10px 15px;
+  border-radius: 18px 18px 4px 18px;
+  background: var(--at-selected);
+  color: var(--at-text);
+}
+.an-question p {
+  margin: 0;
+  font-size: var(--at-text-md);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.an-question.is-sending {
+  opacity: 0.7;
+}
+.an-question.is-loading {
+  padding: 14px 16px;
+  background: var(--at-sunken);
+}
+.an-reply {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+}
+.an-avatar {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--at-accent-border);
+  border-radius: 50%;
+  background: var(--at-accent-soft);
+  color: var(--at-accent-text);
+}
+.an-reply-body {
+  display: grid;
+  gap: var(--at-space-15);
+  min-width: 0;
+  padding-top: 2px;
+}
+.an-note {
+  margin: 0;
+  color: var(--at-text-2);
+  font-size: var(--at-text-md);
+  line-height: 1.55;
+}
+
+/* Working: a quiet pulse, what is happening now and how long it has taken. */
+.an-working {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  min-height: 28px;
+  color: var(--at-text-2);
+  font-size: var(--at-text-md);
+}
+.an-dots {
+  display: inline-flex;
+  gap: 4px;
+  padding: 0 2px;
+}
+.an-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--at-accent);
+  animation: an-dot 1.2s ease-in-out infinite;
+}
+.an-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.an-dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes an-dot {
+  0%,
+  70%,
+  100% {
+    opacity: 0.3;
+    transform: none;
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .an-dots span {
+    opacity: 0.7;
+    animation: none;
+  }
+}
+.an-working-time {
+  color: var(--at-muted);
+  font-size: var(--at-text-sm);
+}
+.an-working .an-working-stop {
+  margin-left: 2px;
+}
+
+/* Answer */
+.an-answer {
+  display: grid;
+  gap: var(--at-space-15);
+  min-width: 0;
+}
+.an-answer-head h2 {
+  margin: 0;
+  color: var(--at-text);
+  font-family: var(--at-font-sans);
+  font-size: var(--at-text-lg);
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  line-height: 1.35;
+}
+.an-answer-head p {
+  margin: 3px 0 0;
+  color: var(--at-muted);
+  font-size: var(--at-text-sm);
+  line-height: 1.5;
+}
+/* The plain-language answer, read before the numbers behind it. */
+.an-summary {
+  display: grid;
+  gap: var(--at-space-1);
+  color: var(--at-text);
+  font-size: var(--at-text-md);
+  line-height: 1.6;
+}
+.an-summary p {
+  margin: 0;
+  max-width: 68ch;
+}
+.an-summary ul {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 1.2em;
+  color: var(--at-text-2);
+  font-size: var(--at-text-sm);
+}
+.an-chart {
+  --wk-series: var(--at-chart-1);
+  min-width: 0;
+  margin: 0;
+  padding: 12px 16px 14px;
+  border: 1px solid var(--at-border);
+  border-radius: var(--at-radius-lg);
+  background: var(--at-raised);
+}
+.an-chart figcaption {
+  margin-bottom: 10px;
+  color: var(--at-muted);
+  font-size: var(--at-text-sm);
+  font-weight: 500;
+}
+.an-chart .wk-chart-focus:focus-visible {
+  outline-offset: 5px;
+}
+.an-chart .wk-bars {
+  margin: -2px -8px;
+}
+.an-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+.an-stat {
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--at-border);
+  border-radius: var(--at-radius-lg);
+  background: var(--at-raised);
+}
+.an-stat dt {
+  overflow: hidden;
+  color: var(--at-muted);
+  font-size: var(--at-text-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.an-stat dd {
+  margin: 4px 0 0;
+  color: var(--at-text);
+  font-size: var(--at-text-md);
+  font-weight: 500;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.an-stat dd.at-num {
+  font-family: var(--at-font-display);
+  font-size: var(--at-text-2xl);
+  font-weight: 400;
+  letter-spacing: -0.4px;
+  line-height: 1.15;
+}
+/* Columns share the card's width (the grid's own sizing makes every column
+   as wide as the widest, which pushes the last ones out of view); a narrow
+   card still scrolls sideways past the columns' minimum widths. */
+.an-table .at-grid-inner {
+  width: auto;
+}
+.an-table .at-grid-foot {
+  padding: 4px 6px;
+}
+
+/* Footer: sources, then quiet toggles for the rest. */
+.an-foot {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.an-sources {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.an-foot-label {
+  margin-right: 2px;
+  color: var(--at-muted);
+  font-size: var(--at-text-sm);
+}
+.an-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 100%;
+  height: 24px;
+  padding: 0 9px;
+  overflow: hidden;
+  border: 1px solid var(--at-border);
+  border-radius: var(--at-radius-pill);
+  background: var(--at-raised);
+  color: var(--at-text-2);
+  font-size: var(--at-text-sm);
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.an-chip:hover {
+  border-color: var(--at-border-strong);
+  background: var(--at-hover);
+  color: var(--at-text);
+}
+.an-chip svg {
+  flex: none;
+  color: var(--at-muted);
+}
+.an-foot-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  margin-left: -8px;
+}
+.an-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: var(--at-radius-sm);
+  background: none;
+  color: var(--at-muted);
+  font: inherit;
+  font-size: var(--at-text-sm);
+  font-weight: 500;
+  cursor: pointer;
+}
+.an-toggle:hover,
+.an-toggle.is-open {
+  background: var(--at-hover);
+  color: var(--at-text);
+}
+.an-toggle svg {
+  transition: transform var(--at-duration) var(--at-ease);
+}
+.an-toggle.is-open svg {
+  transform: rotate(180deg);
+}
+.an-foot-actions {
+  display: inline-flex;
+  gap: 4px;
+  margin-left: auto;
+}
+.an-foot-panel {
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--at-border);
+  border-radius: var(--at-radius-lg);
+  background: var(--at-sunken);
+  color: var(--at-text-2);
+  font-size: var(--at-text-base);
+  animation: at-pop 160ms var(--at-ease);
+}
+.an-assumptions {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.5;
+}
+.an-sql-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: -6px -8px 6px 0;
+  color: var(--at-muted);
+  font-size: var(--at-text-sm);
+}
+.an-sql pre {
+  max-height: 280px;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  border-radius: 0;
+  background: none;
+  color: var(--at-text);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-text-sm);
+  line-height: 1.6;
+  white-space: pre;
+}
+.an-sql pre code {
+  color: inherit;
+  font-size: inherit;
+}
+.an-details-meta {
+  margin: 0 0 8px;
+  color: var(--at-text-2);
+}
+.an-events {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  font-size: var(--at-text-sm);
+  list-style: none;
+}
+.an-events li {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 10px;
+}
+.an-events time {
+  color: var(--at-muted);
+}
+.an-events span {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--at-text-2);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+/* Cards: prepared changes, and what went wrong. */
+.an-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--at-border);
+  border-radius: var(--at-radius-lg);
+  background: var(--at-raised);
+}
+.an-card-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--at-radius);
+  background: var(--at-accent-soft);
+  color: var(--at-accent-text);
+}
+.an-card-text {
+  flex: 1;
+  min-width: min(240px, 100%);
+}
+.an-card-text strong {
+  display: block;
+  color: var(--at-text);
+  font-size: var(--at-text-md);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.an-card-text p {
+  margin: 2px 0 0;
+  color: var(--at-text-2);
+  font-size: var(--at-text-base);
+  line-height: 1.5;
+}
+.an-card > .at-btn {
+  align-self: center;
+}
+.an-card.is-danger {
+  border-color: color-mix(in srgb, var(--at-danger) 30%, var(--at-border));
+  background: var(--at-danger-soft);
+}
+.an-card.is-danger .an-card-icon {
+  background: color-mix(in srgb, var(--at-danger) 14%, transparent);
+  color: var(--at-danger-text);
+}
+.an-card.is-muted {
+  background: var(--at-sunken);
+}
+.an-card.is-muted .an-card-icon {
+  background: var(--at-hover);
+  color: var(--at-muted);
+}
+.an-card-detail > summary {
+  margin: 0;
+  padding: 6px 0 0;
+  color: var(--at-muted);
+  font-size: var(--at-text-sm);
+}
+.an-card-detail[open] > summary {
+  margin-bottom: 0;
+}
+.an-card-detail pre {
+  max-height: 180px;
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  border: 1px solid var(--at-border);
+  border-radius: var(--at-radius);
+  background: var(--at-raised);
+  color: var(--at-text-2);
+  font-family: var(--at-font-mono);
+  font-size: var(--at-text-sm);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+/* Composer: pinned under the conversation, which fades out behind it. */
+.an-dock {
+  position: relative;
+  flex: none;
+  padding-bottom: 10px;
+  background: var(--at-bg);
+}
+.an-dock::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  height: 20px;
+  background: linear-gradient(transparent, var(--at-bg));
+  pointer-events: none;
+}
+.an-composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 7px 7px 7px 16px;
+  border: 1px solid var(--at-border-strong);
+  border-radius: var(--at-radius-xl);
+  background: var(--at-field);
+  box-shadow: var(--at-shadow-2);
+  cursor: text;
+  transition:
+    border-color var(--at-duration) var(--at-ease),
+    box-shadow var(--at-duration) var(--at-ease);
+}
+.an-composer:focus-within {
+  border-color: var(--at-accent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--at-accent) 18%, transparent),
+    var(--at-shadow-2);
+}
+.an-composer .an-input {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 7px 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--at-text);
+  font: inherit;
+  font-size: var(--at-text-md);
+  line-height: 22px;
+  resize: none;
+}
+.an-composer .an-input:focus,
+.an-composer .an-input:focus-visible {
+  border: 0;
+  outline: none;
+}
+.an-composer .an-input::placeholder {
+  color: var(--at-muted);
+}
+.an-send {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--at-radius-lg);
+  background: var(--at-ink);
+  color: var(--at-on-ink);
+  cursor: pointer;
+  transition: background var(--at-duration) var(--at-ease);
+}
+.an-send:hover:not(:disabled) {
+  background: var(--at-ink-hover);
+}
+.an-send:disabled {
+  background: var(--at-sunken);
+  color: var(--at-faint);
+  cursor: default;
+}
+.an-hint {
+  margin: 6px 0 0;
+  color: var(--at-muted);
+  font-size: var(--at-text-xs);
+  line-height: 1.4;
+  text-align: center;
+}
+.an-jump {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--at-border-strong);
+  border-radius: var(--at-radius-pill);
+  background: var(--at-raised);
+  box-shadow: var(--at-shadow-2);
+  color: var(--at-text);
+  font: inherit;
+  font-size: var(--at-text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transform: translateX(-50%);
+}
+.an-jump:hover {
+  background: var(--at-hover);
+}
+
+/* Ask panel: the same composer, a little taller, inside a dialog. */
+.an-ask .an-composer {
+  box-shadow: none;
+}
+.an-ask .an-hint {
+  text-align: left;
+}
+
+@media (max-width: 800px) {
+  .an-chat {
+    --an-gutter: var(--at-space-2);
+    /* Under the mobile bar. */
+    height: calc(100dvh - 52px);
+  }
+  .an-log {
+    gap: var(--at-space-4);
+    padding-top: var(--at-space-2);
+  }
+}
+@media (max-width: 520px) {
+  .an-question {
+    max-width: 90%;
+  }
+  .an-reply {
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 10px;
+  }
+  .an-avatar {
+    width: 24px;
+    height: 24px;
+  }
+  .an-avatar svg {
+    width: 12px;
+    height: 12px;
+  }
+  .an-new-chat {
+    width: 28px;
+    padding: 0;
+  }
+  .an-new-chat-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .an-card > .at-btn {
+    margin-left: 42px;
+  }
+  .an-chat .an-hint {
+    display: none;
+  }
+}
